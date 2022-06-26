@@ -1,7 +1,7 @@
-package com.yubraj.microservice.demo;
+package com.yubraj.microservice.grpc.demo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yubraj.microservice.demo.jModels.JPerson;
+import com.yubraj.microservice.grpc.jModels.JPerson;
 import com.yubraj.microservice.models.Person;
 import org.springframework.util.StopWatch;
 

@@ -1,4 +1,4 @@
-package com.yubraj.microservice.demo;
+package com.yubraj.microservice.grpc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
