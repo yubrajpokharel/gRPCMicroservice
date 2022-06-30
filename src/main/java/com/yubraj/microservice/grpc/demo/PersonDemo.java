@@ -1,4 +1,4 @@
-package com.yubraj.microservice.demo;
+package com.yubraj.microservice.grpc.demo;
 
 import com.yubraj.microservice.models.Person;
 

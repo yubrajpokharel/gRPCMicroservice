@@ -1,7 +1,4 @@
-package com.yubraj.microservice.demo;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+package com.yubraj.microservice.grpc;
 
 //@SpringBootApplication
 public class GRpCmicroServiceApplication {

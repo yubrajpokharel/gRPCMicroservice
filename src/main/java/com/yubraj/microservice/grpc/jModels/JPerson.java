@@ -1,4 +1,4 @@
-package com.yubraj.microservice.demo.jModels;
+package com.yubraj.microservice.grpc.jModels;
 
 
 import lombok.Data;
