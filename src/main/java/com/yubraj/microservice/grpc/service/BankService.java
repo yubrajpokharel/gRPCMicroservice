@@ -1,6 +1,7 @@
 package com.yubraj.microservice.grpc.service;
 
 import com.yubraj.microservice.grpc.database.AccountDatabase;
+import com.yubraj.microservice.grpc.request.CashStreamingRequest;
 import com.yubraj.microservice.models.grpc.*;
 import com.yubraj.microservice.models.grpc.BankServiceGrpc.BankServiceImplBase;
 import io.grpc.Status;
@@ -35,5 +36,10 @@ public class BankService extends BankServiceImplBase
         }
 
         responseObserver.onCompleted();
+    }
+
+    @Override
+    public StreamObserver<DepositRequest> cashDeposit(StreamObserver<Balance> responseObserver) {
+        return new CashStreamingRequest(responseObserver);
     }
 }

@@ -2,18 +2,18 @@ package com.yubraj.microservice.grpc;
 
 
 import com.google.common.util.concurrent.Uninterruptibles;
+import com.yubraj.microservice.grpc.response.BalanceStreamObserver;
 import com.yubraj.microservice.grpc.response.MoneyStreamingResponse;
 import com.yubraj.microservice.grpc.service.BankService;
-import com.yubraj.microservice.models.grpc.Balance;
-import com.yubraj.microservice.models.grpc.BankCheckRequest;
-import com.yubraj.microservice.models.grpc.BankServiceGrpc;
-import com.yubraj.microservice.models.grpc.WithdrawRequest;
+import com.yubraj.microservice.models.grpc.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.stub.StreamObserver;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -56,6 +56,18 @@ public class BankServiceTest {
         WithdrawRequest withdrawRequest = WithdrawRequest.newBuilder().setAccountNumber(11).setAmount(50).build();
         bankServiceStub.withDraw(withdrawRequest, new MoneyStreamingResponse());
         Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void  cashDepositTest() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        StreamObserver<DepositRequest> streamObserver = bankServiceStub.cashDeposit(new BalanceStreamObserver(latch));
+        for (int i = 0; i < 10; i++) {
+            DepositRequest depositRequest = DepositRequest.newBuilder().setAccountNumber(4).setAmount(10).build();
+            streamObserver.onNext(depositRequest);
+        }
+        streamObserver.onCompleted();
+        latch.await();
     }
 
 }
